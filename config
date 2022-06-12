@@ -74,7 +74,6 @@ bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 #bindsym $mod+F3 exec spotify --force-device-scale-factor=2
 #bindsym $mod+F3 exec gnome-terminal  -- ranger path/to/Documents/uni2019-20
 #bindsym $mod+F4 exec thunar path/to/Documents/uni2019-20
-#bindsym $mod+F5 exec thunar ~/DATA/cyberChallange
 #bindsym $mod+t exec --no-startup-id pkill compton
 #bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 #bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
@@ -155,6 +154,10 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
+# navigate to monitor
+bindsym $mod+Shift+Ctrl+Right focus output right
+bindsym $mod+Shift+Ctrl+Left focus output left
+
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
@@ -208,12 +211,15 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
+
 # Open applications on specific workspaces
 for_window [class="Spotify"] move to workspace $ws5
 for_window [class="Slack"] move to workspace $ws1
 for_window [class="Thunderbird"] move to workspace $ws1
 
 
+# Find class name with xprop
+# https://www.tuxtips.info/linux/how-to-find-applications-window-class-in-i3-window-manager
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
@@ -252,6 +258,7 @@ for_window [class="Zotero"] floating enable
 for_window [class="dolphin"] floating enable 
 for_window [class="dolphin"] resize set 2000 1700 
 for_window [class="Blueman-manager"] floating enable 
+for_window [class="Arandr"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -264,12 +271,6 @@ bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-#bindsym $mod+Shift+m exec ~/.screenlayout/only.sh
-#bindsym $mod+Shift+n/ exec ~/.screenlayout/externalRight.sh
-#bindsym $mod+Shift+n exec ~/.screenlayout/top_maybe.sh
-#bindsym $mod+Shift+n exec ~/.screenlayout/only_top_4k.sh
-#bindsym $mod+Shift+u exec ~/.screenlayout/big_4k_top.sh
 
 # default, all screen on
 exec ~/.screenlayout/ntb-1-2.sh
@@ -299,21 +300,6 @@ set $secondMonitor DP-1-2
 #set $firstMonitor eDP-1
 #set $secondMonitor HDMI-1
 
-#set $firstMonitor DP3
-#set $secondMonitor LVDS1
-
-#set $firstMonitor DVI-I-0
-#set $secondMonitor HDMI-0
-
-
-#set $firstMonitor DVI-0
-#set $secondMonitor DVI-1
-
-#set $firstMonitor DVI-I-1
-#set $secondMonitor DVI-D-1
-
-#set $firstMonitor HDMI1
-#set $secondMonitor HDMI2
 
 workspace $ws1 output $firstMonitor
 workspace $ws2 output $firstMonitor
@@ -337,7 +323,6 @@ set $ws7 "7:work"
 set $ws8 "8:work"
 set $ws9 "9:home"
 set $ws10 "10:messaging"
-
 
 
 # Set shut down, restart and locking features
@@ -392,11 +377,8 @@ exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
-#exec --no-startup-id clipit
 exec --no-startup-id flameshot
-#exec --no-startup-id megasync
-#exec --no-startup-id dropbox
-#exec --no-startup-id albert
+
 
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
@@ -408,6 +390,7 @@ exec_always --no-startup-id fix_xcursor
 exec --no-startup-id  xinput set-prop 16 'libinput Accel Speed' 0.5 
 # greenclip daemon for rofi for managing clipboard
 exec --no-startup-id greenclip daemon
+exec --no-startup-id $HOME/.config/polybar/launch.sh
 
 
 
@@ -442,38 +425,6 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-#bar {
-#	i3bar_command i3bar
-#	status_command i3status
-#	position bottom
-#
-### please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-##	tray_output primary
-##	tray_output eDP1
-#
-#	bindsym button4 nop
-#	bindsym button5 nop
-##   font xft:URWGothic-Book 11
-#	strip_workspace_numbers yes
-#
-#    colors {
-#        background #222D31
-#        statusline #F9FAF9
-#        separator  #454947
-#
-##                      border  backgr. text
-#        focused_workspace  #F9FAF9 #16a085 #292F34
-#        active_workspace   #595B5B #353836 #FDF6E3
-#        inactive_workspace #595B5B #222D31 #EEE8D5
-#        binding_mode       #16a085 #2C2C2C #F9FAF9
-#        urgent_workspace   #16a085 #FDF6E3 #E5201D
-#    }
-#}
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-
-# hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
@@ -511,6 +462,7 @@ set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 bindsym $mod+Shift+g mode "$mode_gaps"
 bindsym $mod+T exec --no-startup-id crow
+
 mode "$mode_gaps" {
         bindsym o      mode "$mode_gaps_outer"
         bindsym i      mode "$mode_gaps_inner"
