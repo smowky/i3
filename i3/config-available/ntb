@@ -1,0 +1,15 @@
+# notebook i3 config vars
+
+set $firstMonitor eDP-1
+
+workspace $ws1 output $firstMonitor
+workspace $ws2 output $firstMonitor
+workspace $ws3 output $firstMonitor
+workspace $ws4 output $firstMonitor
+workspace $ws5 output $firstMonitor
+workspace $ws6 output $firstMonitor
+workspace $ws7 output $firstMonitor
+workspace $ws8 output $firstMonitor
+workspace $ws9 output $firstMonitor
+workspace $ws10 output $firstMonitor
+

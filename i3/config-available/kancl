@@ -1,0 +1,17 @@
+# notebook i3 config vars
+
+# define monitors
+set $firstMonitor eDP-1
+set $secondMonitor HDMI-1
+
+# add some setup uniq vars
+workspace $ws1 output $firstMonitor
+workspace $ws2 output $firstMonitor
+workspace $ws3 output $firstMonitor
+workspace $ws4 output $firstMonitor
+workspace $ws5 output $firstMonitor
+workspace $ws6 output $secondMonitor
+workspace $ws7 output $secondMonitor
+workspace $ws8 output $secondMonitor
+workspace $ws9 output $secondMonitor
+workspace $ws10 output $secondMonitor
