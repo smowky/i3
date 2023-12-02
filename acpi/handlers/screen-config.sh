@@ -41,6 +41,12 @@ elif [ "$current_profile" = "kancl" ]; then
         DISPLAY=:0 sudo -u smowky        i3 restart 
         DISPLAY=:0 sudo -u smowky        ${home}/.config/polybar/cuts/launch-kancl.sh
 	DISPLAY=:0 sudo -u smowky        ${home}/.config/i3/config :notify-send "Reloaded i3 :)"
+elif [ "$current_profile" = "logmanager-kancl" ]; then
+        rm ${home}/.config/i3/config-enabled/*
+        ln -s ${home}/.config/i3/config-available/logmanager-kancl ${home}/.config/i3/config-enabled/logmanager-kancl
+        DISPLAY=:0 sudo -u smowky        i3 restart
+        DISPLAY=:0 sudo -u smowky        ${home}/.config/polybar/cuts/launch-logmanager-kancl.sh
+	DISPLAY=:0 sudo -u smowky        ${home}/.config/i3/config :notify-send "Reloaded i3 :)"
 fi
 
 # change i3 config with `i3-msg restart`
